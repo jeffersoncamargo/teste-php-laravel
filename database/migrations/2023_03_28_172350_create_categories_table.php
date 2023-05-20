@@ -14,7 +14,20 @@ return new class extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('name', 20);
+
+            /**
+             * Ao valida as entradas de dados, percebí que a Categoria
+             * vai ser inputada por texto a ser relacionado com o ID
+             * 
+             * Assim, julguei duas melhorias serem necessárias:
+             * 
+             * 1 => adicionar um índice de Unique na coluna com o nome da categoria,
+             * garantindo que não haverá duplicidade no nome
+             * 
+             * 2 => adicionar um índice simpes na coluna, agilizando ainda mais a
+             * busca do ID da categoria pelo nome
+             */
+            $table->string('name', 20)->unique()->index();
         });
     }
 
